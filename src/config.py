@@ -27,10 +27,22 @@ def load_config():
         config = json.loads(contents)
 
 
-## Returns the path to the log directory.
-def get_log_dir():
+## Returns logging enabled.
+#
+# This function returns true if the 'enabled' variable is set to true
+# in the configuration file. Otherwise is will return false.
+def get_log_enabled() -> bool:
     global config
 
     load_config()
 
-    return config["logging"]["log-directory"]
+    return config["logging"]["enabled"]
+
+
+## Returns the path to the log directory.
+def get_log_dir() -> str:
+    global config
+
+    load_config()
+
+    return config["logging"]["directory"]
