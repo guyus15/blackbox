@@ -45,3 +45,11 @@ class TestLog(unittest.TestCase):
         with patch("sys.stdout", new=StringIO()) as fake_output:
             log.create_log_dir()
             self.assertEqual(fake_output.getvalue(), "Logging to directory '{}'\n".format(log_dir_name))
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        # Remove test log directory
+        log_dir = config.get_log_dir()
+
+        if os.path.exists(log_dir):
+            os.rmdir(log_dir)
