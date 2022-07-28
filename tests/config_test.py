@@ -24,6 +24,11 @@ class TestConfig(unittest.TestCase):
         # This test ensures that get_log_dir() returns the expected value.
         global this_config
 
-        log_dir = config.get_log_dir()
+        self.assertEqual(config.get_log_dir(), this_config["logging"]["directory"])
 
-        self.assertEqual(config.get_log_dir(), this_config["logging"]["log-directory"])
+    # Test 2
+    def test_get_log_enabled(self):
+        # This test ensures that get_log_enabled() returns the expected value.
+        global this_config
+
+        self.assertEqual(config.get_log_enabled(), this_config["logging"]["enabled"])
