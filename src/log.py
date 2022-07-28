@@ -61,7 +61,10 @@ def write_log(entry: str, logfile: str):
 # @param entry The log entry.
 # @param logfile The log file.
 def write_log_windows(entry: str, logfile: str):
-    pass
+    log_path = config.get_log_dir() + '/' + logfile
+
+    with open(log_path, 'a') as fd:
+        fd.write(entry)
 
 
 ## Writes to a log entry within the log directory on Linux.
@@ -69,4 +72,14 @@ def write_log_windows(entry: str, logfile: str):
 # @param entry The log entry.
 # @param logfile The log file.
 def write_log_linux(entry: str, logfile: str):
-    pass
+    log_path = config.get_log_dir() + '/' + logfile
+
+    with open(log_path, 'a') as fd:
+        fd.write(entry)
+
+    """
+    TODO: Do a check here to see if the user has a USB connected. If so, write the logs
+    there instead.
+    
+    TODO: Look at status LEDs, these can be configured to show progress of log entry writing.
+    """
