@@ -4,7 +4,7 @@
 
 import json
 
-CONFIG_PATH = "config.json"
+CONFIG_PATH = "../config.json"
 
 # The configuration dictionary
 config = dict()
