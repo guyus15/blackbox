@@ -37,6 +37,9 @@ def create_log_dir():
 # @param entry The log entry.
 # @param logfile The log file.
 def write_log(entry: str, logfile: str):
+    if not config.get_log_enabled():
+        return
+
     current_time = time.strftime("%d/%m/%Y - %H:%M:%S", time.gmtime())
     entry = current_time + entry
 
