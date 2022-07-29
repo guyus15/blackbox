@@ -1,9 +1,10 @@
 ## @file log_test.py
 # @brief Contains tests to test the 'log' module.
 # @author Guy Chamberlain-Webber
-
+import time
 import unittest
 import os
+import shutil
 import src.config as config
 import src.log as log
 
@@ -46,10 +47,28 @@ class TestLog(unittest.TestCase):
             log.create_log_dir()
             self.assertEqual(fake_output.getvalue(), "Logging to directory '{}'\n".format(log_dir_name))
 
+    # Test 3
+    def test_write_log(self):
+        # This test ensures that the write_log() function correctly writes a log entry to the
+        # designated log directory.
+        # NOTE: if this test does not pass, it is likely that logging is turned off in config.json
+
+        log_dir_name = config.get_log_dir()
+
+        test_entry = "some test entry"
+        test_logfile = "test_logfile.txt"
+
+        log.create_log_dir()
+        log.write_log(test_entry, test_logfile)
+
+        # Check that the entry has been written.
+        with open("{}/{}".format(log_dir_name, test_logfile), "r") as fd:
+            self.assertEqual(fd.read(), time.strftime("%d/%m/%Y @ %H:%M:%S - ", time.gmtime()) + test_entry)
+
     @classmethod
     def tearDownClass(cls) -> None:
         # Remove test log directory
         log_dir = config.get_log_dir()
 
         if os.path.exists(log_dir):
-            os.rmdir(log_dir)
+            shutil.rmtree(log_dir, ignore_errors=True)
