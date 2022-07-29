@@ -40,7 +40,7 @@ def write_log(entry: str, logfile: str):
     if not config.get_log_enabled():
         return
 
-    current_time = time.strftime("%d/%m/%Y - %H:%M:%S", time.gmtime())
+    current_time = time.strftime("%d/%m/%Y @ %H:%M:%S - ", time.gmtime())
     entry = current_time + entry
 
     plat = sys.platform
