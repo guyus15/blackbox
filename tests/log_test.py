@@ -12,6 +12,10 @@ from unittest.mock import patch
 from io import StringIO
 
 
+# Override the config path just for the tests.
+config.CONFIG_PATH = "../config.json"
+
+
 ## This test case test the 'log' module.
 class TestLog(unittest.TestCase):
 

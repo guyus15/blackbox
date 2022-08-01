@@ -8,6 +8,9 @@ import src.config as config
 
 this_config = dict()
 
+# Override config path just for the tests.
+config.CONFIG_PATH = "../config.json"
+
 
 ## This test case test the 'config' module.
 class TestConfig(unittest.TestCase):

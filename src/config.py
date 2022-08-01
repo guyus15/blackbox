@@ -4,7 +4,7 @@
 
 import json
 
-CONFIG_PATH = "../config.json"
+CONFIG_PATH = "config.json"
 
 # The configuration dictionary
 config = dict()
@@ -30,7 +30,7 @@ def load_config():
 ## Returns logging enabled.
 #
 # This function returns true if the 'enabled' variable is set to true
-# in the configuration file. Otherwise is will return false.
+# in the configuration file. Otherwise, it will return false.
 def get_log_enabled() -> bool:
     global config
 
