@@ -1,7 +1,7 @@
 {
   "version": 0.1,
   "logging": {
-    "enabled": false,
+    "enabled": true,
     "directory": "logs"
   }
 }
