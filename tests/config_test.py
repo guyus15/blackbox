@@ -42,3 +42,25 @@ class TestConfig(unittest.TestCase):
         global this_config
 
         self.assertEqual(config.get_mx_signature(), this_config["packets"]["mx-speak-signature"])
+
+    # Test 4
+    def test_get_packet_length(self):
+        # This test ensures that when given a valid MXSpeakVersion, the get_packet_length()
+        # function will return the correct value from the configuration file.
+        global this_config
+
+        self.assertEqual(config.get_packet_length(config.MXSpeakVersion.MX_SPEAK5),
+                         this_config["packets"]["mx5-default-packet-length"])
+        self.assertEqual(config.get_packet_length(config.MXSpeakVersion.MX_SPEAK6),
+                         this_config["packets"]["mx6-default-packet-length"])
+
+    # Test 5
+    def test_get_packet_length_invalid_version(self):
+        # This test ensures that when given an invalid MXSpeakVersion, the get_packet_length() function
+        # will raise an AttributeError.
+
+        with self.assertRaises(AttributeError) as cm:
+            config.get_packet_length(10)
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)

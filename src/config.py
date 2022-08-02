@@ -3,11 +3,18 @@
 # @author Guy Chamberlain-Webber
 
 import json
+import enum
 
 CONFIG_PATH = "config.json"
 
 # The configuration dictionary
 config = dict()
+
+
+## An enum used to represents different version of the MX Speak specification.
+class MXSpeakVersion(enum.Enum):
+    MX_SPEAK5 = 0
+    MX_SPEAK6 = 1
 
 
 ## Loads the configuration contained within the configuration file.
@@ -58,3 +65,20 @@ def get_mx_signature() -> int:
     load_config()
 
     return config["packets"]["mx-speak-signature"]
+
+
+## Returns the default packet header length of a protocol's local header.
+#
+# A packet length will be returned depending on the enum type passed into the function.
+#
+# @return The default packet header length.
+def get_packet_length(mx_version: MXSpeakVersion) -> int:
+    global config
+    load_config()
+
+    if mx_version is MXSpeakVersion.MX_SPEAK5:
+        return config["packets"]["mx5-default-packet-length"]
+    elif mx_version is MXSpeakVersion.MX_SPEAK6:
+        return config["packets"]["mx6-default-packet-length"]
+
+    raise AttributeError(f"No default packet length found for {mx_version}")
