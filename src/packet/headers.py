@@ -5,8 +5,22 @@
 from src.packet.content import Content
 
 
+## Base header class.
+class BaseHeader(Content):
+    ## Gets an object as an array of bytes.
+    #
+    # @return The containing object as an array of bytes.
+    def get_byte_array(self) -> list:
+        data = list()
+
+        for param in self._params.keys():
+            data.append(self.get_parameter(param))
+
+        return data
+
+
 ## An MX Speak 5 Local Header, which is used when connected to the panel's COM2 serial port.
-class LocalHeaderMX5(Content):
+class LocalHeaderMX5(BaseHeader):
     def __init__(self, packet_id: int):
         params = {
             "packet_length":                0x09,
@@ -21,14 +35,3 @@ class LocalHeaderMX5(Content):
         }
 
         super().__init__(**params)
-
-    ## Gets an object as an array of bytes.
-    #
-    # @return The containing object as an array of bytes.
-    def get_byte_array(self) -> list:
-        data = list()
-
-        for param in self._params.keys():
-            data.append(self.get_parameter(param))
-
-        return data
