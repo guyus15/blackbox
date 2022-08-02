@@ -13,7 +13,7 @@ from io import StringIO
 
 
 # Override the config path just for the tests.
-config.CONFIG_PATH = "../config.json"
+config.CONFIG_PATH = "config.json"
 
 
 ## This test case test the 'log' module.
@@ -67,7 +67,7 @@ class TestLog(unittest.TestCase):
 
         # Check that the entry has been written.
         with open("{}/{}".format(log_dir_name, test_logfile), "r") as fd:
-            self.assertEqual(fd.read(), time.strftime("%d/%m/%Y @ %H:%M:%S - ", time.gmtime()) + test_entry)
+            self.assertEqual(fd.read(), time.strftime("%d/%m/%Y @ %H:%M:%S - ", time.gmtime()) + test_entry + "\n")
 
     @classmethod
     def tearDownClass(cls) -> None:
