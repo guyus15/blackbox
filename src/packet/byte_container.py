@@ -15,17 +15,17 @@ class IByteContainer(abc.ABC):
     #
     # @return The containing object as an array of bytes.
     @abc.abstractmethod
-    def get_byte_array(self):
+    def get_byte_array(self) -> list:
         pass
 
     # Sets the parameter contained at 'key' to 'value'.
     @abc.abstractmethod
-    def set_parameter(self, key, value):
+    def set_parameter(self, key: str, value):
         pass
 
     # Gets the parameter contained at 'key'
     #
     # @return The parameter contained at the specified key.
     @abc.abstractmethod
-    def get_parameter(self, key):
+    def get_parameter(self, key: str):
         pass

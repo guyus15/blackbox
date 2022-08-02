@@ -18,7 +18,7 @@ class Content(IByteContainer):
     ## Checks whether 'key' exists in the content parameters.
     #
     # @return True if 'key' exists, False if it doesn't.
-    def check_exists(self, key):
+    def check_exists(self, key: str) -> bool:
         for attr in self._params:
             if attr == key:
                 return True
@@ -28,7 +28,7 @@ class Content(IByteContainer):
     ## Gets an object as an array of bytes.
     #
     # @return The containing object as an array of bytes.
-    def get_byte_array(self):
+    def get_byte_array(self) -> list:
         byte_array = []
 
         for attr in self._params:
@@ -50,7 +50,7 @@ class Content(IByteContainer):
         return byte_array
 
     # Sets the parameter contained at 'key' to 'value'.
-    def set_parameter(self, key, value):
+    def set_parameter(self, key: str, value):
         if not self.check_exists(key):
             raise AttributeError(f"'{key}' can not be found in content parameters.")
 
@@ -59,7 +59,7 @@ class Content(IByteContainer):
     # Gets the parameter contained at 'key'
     #
     # @return The parameter contained at the specified key.
-    def get_parameter(self, key):
+    def get_parameter(self, key: str):
         if not self.check_exists(key):
             raise AttributeError(f"'{key}' can not be found in content parameters.")
 
@@ -68,7 +68,7 @@ class Content(IByteContainer):
     ## Returns the content object as a string.
     #
     # @return The string representation of the content object.
-    def __str__(self):
+    def __str__(self) -> str:
         string = "Packet contents:\n"
 
         for attr in self._params:
