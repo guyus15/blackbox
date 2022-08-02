@@ -21,3 +21,14 @@ class LocalHeaderMX5(Content):
         }
 
         super().__init__(**params)
+
+    ## Gets an object as an array of bytes.
+    #
+    # @return The containing object as an array of bytes.
+    def get_byte_array(self) -> list:
+        data = list()
+
+        for param in self._params.keys():
+            data.append(self.get_parameter(param))
+
+        return data
