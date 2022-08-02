@@ -35,3 +35,10 @@ class TestConfig(unittest.TestCase):
         global this_config
 
         self.assertEqual(config.get_log_enabled(), this_config["logging"]["enabled"])
+
+    # Test 3
+    def test_get_mx_signature(self):
+        # This test ensures that get_mx_signature() returns the expected value.
+        global this_config
+
+        self.assertEqual(config.get_mx_signature(), this_config["packets"]["mx-speak-signature"])

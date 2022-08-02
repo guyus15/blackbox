@@ -48,3 +48,13 @@ def get_log_dir() -> str:
     load_config()
 
     return config["logging"]["directory"]
+
+
+## Returns MX Speak Signature.
+#
+# @return The MX Speak Signature for data packets.
+def get_mx_signature() -> int:
+    global config
+    load_config()
+
+    return config["packets"]["mx-speak-signature"]
