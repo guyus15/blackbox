@@ -28,3 +28,19 @@ class TestContent(unittest.TestCase):
         expected_string = "Packet contents:\nsize: 10\ntype: 137\ntest_value: 123\n"
 
         self.assertEqual(this_content.__str__(), expected_string)
+
+    # Test 2
+    def test_check_exists_when_exists(self):
+        # This test ensures that when a key exists in the content parameters,
+        # the check_exists() method returns True.
+        global this_content
+
+        self.assertTrue(this_content.check_exists("size"))
+
+    # Test 3
+    def test_check_exists_no_exist(self):
+        # This test ensures that when a key does not exist in the content parameters,
+        # the check_exists() method returns False.
+        global this_content
+
+        self.assertFalse(this_content.check_exists("no existent parameter"))
