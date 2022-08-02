@@ -11,7 +11,7 @@ CONFIG_PATH = "config.json"
 config = dict()
 
 
-## An enum used to represents different version of the MX Speak specification.
+## An enum used to represent different version of the MX Speak specification.
 class MXSpeakVersion(enum.Enum):
     MX_SPEAK5 = 0
     MX_SPEAK6 = 1
@@ -59,12 +59,22 @@ def get_log_dir() -> str:
 
 ## Returns the path to the test start directory.
 #
-# @returns The path to the test start directory.
+# @return The path to the test start directory.
 def get_test_start_directory() -> str:
     global config
     load_config()
 
     return config["testing"]["start-directory"]
+
+
+## Returns the test discovery pattern.
+#
+# @return The test discovery pattern.
+def get_test_discovery_pattern() -> str:
+    global config
+    load_config()
+
+    return config["testing"]["discovery-pattern"]
 
 
 ## Returns MX Speak Signature.

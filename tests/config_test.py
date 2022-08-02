@@ -73,3 +73,10 @@ class TestConfig(unittest.TestCase):
 
         self.assertEqual(config.get_test_start_directory(), this_config["testing"]["start-directory"])
 
+    # Test 7
+    def test_get_test_discovery_pattern(self):
+        # This test ensures that the get_test_discovery_pattern() function will return the
+        # correct test discovery pattern specified in the configuration settings.
+        global this_config
+
+        self.assertEqual(config.get_test_discovery_pattern(), this_config["testing"]["discovery-pattern"])
