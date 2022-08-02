@@ -49,14 +49,14 @@ class Content(IByteContainer):
 
         return byte_array
 
-    # Sets the parameter contained at 'key' to 'value'.
+    ## Sets the parameter contained at 'key' to 'value'.
     def set_parameter(self, key: str, value):
         if not self.check_exists(key):
             raise AttributeError(f"'{key}' can not be found in content parameters.")
 
         self._params[key] = value
 
-    # Gets the parameter contained at 'key'
+    ## Gets the parameter contained at 'key'.
     #
     # @return The parameter contained at the specified key.
     def get_parameter(self, key: str):
