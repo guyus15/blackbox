@@ -10,8 +10,7 @@ this_content = None
 
 ## This test case tests the 'content' file and class.
 class TestContent(unittest.TestCase):
-    @classmethod
-    def setUpClass(cls) -> None:
+    def setUp(self) -> None:
         global this_content
 
         this_content = content.Content(
@@ -65,3 +64,26 @@ class TestContent(unittest.TestCase):
         expected_result = [b"\x73", b"\x74", b"\x72", b"\x69", b"\x6e", b"\x67", b"\x31"]
 
         self.assertEqual(new_content.get_byte_array(), expected_result)
+
+    # Test 6
+    def test_set_parameter_valid_key(self):
+        # This test ensures that when the set_parameter() method is called with an existing key,
+        # the value corresponding to that key is set correctly.
+        global this_content
+
+        # Change the value of the 'size' parameter.
+        this_content.set_parameter("size", 20)
+
+        self.assertEqual(this_content._params["size"], 20)
+
+    # Test 7
+    def test_set_parameter_invalid_key(self):
+        # This test ensures that when the set_parameter() method is called with a non-existent key,
+        # an AttributeError is raised.
+        global this_content
+
+        with self.assertRaises(AttributeError) as cm:
+            this_content.set_parameter("non-existent parameter", "some value")
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)
