@@ -44,3 +44,24 @@ class TestContent(unittest.TestCase):
         global this_content
 
         self.assertFalse(this_content.check_exists("no existent parameter"))
+
+    # Test 4
+    def test_get_byte_array(self):
+        # This test ensures that when the get_byte_array() method is called, it returns the expected result,
+        # a byte of array representing the content parameter values.
+        global this_content
+
+        expected_result = [b'\x0a', b'\x89', b'\x7b']
+
+        self.assertEqual(this_content.get_byte_array(), expected_result)
+
+    # Test 5
+    def test_get_byte_array_w_string(self):
+        # This test ensures that when the get_byte_array() method is called when strings are present in the
+        # content parameters, the expected result is still returned.
+
+        new_content = content.Content(some_string="string1")
+
+        expected_result = [b"\x73", b"\x74", b"\x72", b"\x69", b"\x6e", b"\x67", b"\x31"]
+
+        self.assertEqual(new_content.get_byte_array(), expected_result)
