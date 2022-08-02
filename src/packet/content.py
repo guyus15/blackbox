@@ -25,17 +25,6 @@ class Content(IByteContainer):
 
         return False
 
-    ## Returns the content object as a string.
-    #
-    # @return The string representation of the content object.
-    def __str__(self):
-        string = "Packet contents:\n"
-
-        for attr in self._params:
-            string += "{}: {}\n".format(attr, self._params[attr])
-
-        return string
-
     ## Gets an object as an array of bytes.
     #
     # @return The containing object as an array of bytes.
@@ -62,7 +51,10 @@ class Content(IByteContainer):
 
     # Sets the parameter contained at 'key' to 'value'.
     def set_parameter(self, key, value):
-        pass
+        if not self.check_exists(key):
+            raise AttributeError(f"'{key}' can not be found in content parameters.")
+
+        self._params[key] = value
 
     # Gets the parameter contained at 'key'
     #
@@ -70,3 +62,13 @@ class Content(IByteContainer):
     def get_parameter(self, key):
         pass
 
+    ## Returns the content object as a string.
+    #
+    # @return The string representation of the content object.
+    def __str__(self):
+        string = "Packet contents:\n"
+
+        for attr in self._params:
+            string += "{}: {}\n".format(attr, self._params[attr])
+
+        return string
