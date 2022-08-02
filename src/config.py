@@ -31,18 +31,20 @@ def load_config():
 #
 # This function returns true if the 'enabled' variable is set to true
 # in the configuration file. Otherwise, it will return false.
+#
+# @return True if logging is enabled, False if it is not.
 def get_log_enabled() -> bool:
     global config
-
     load_config()
 
     return config["logging"]["enabled"]
 
 
 ## Returns the path to the log directory.
+#
+# @return The path to the log directory.
 def get_log_dir() -> str:
     global config
-
     load_config()
 
     return config["logging"]["directory"]
