@@ -2,6 +2,8 @@
 # @brief Contains a collection of headers used for packet construction.
 # @author Guy Chamberlain-Webber
 
+import src.config as config
+from src.config import MXSpeakVersion
 from src.packet.content import Content
 
 
@@ -23,7 +25,7 @@ class BaseHeader(Content):
 class LocalHeaderMX5(BaseHeader):
     def __init__(self, packet_id: int):
         params = {
-            "packet_length":                0x09,  # Default length
+            "packet_length":                config.get_packet_length(MXSpeakVersion.MX_SPEAK5),
             "network_node":                 0x00,
             "channel":                      0x00,
             "destination_channel_address":  0x00,
@@ -41,8 +43,8 @@ class LocalHeaderMX5(BaseHeader):
 class LocalHeaderMX6(BaseHeader):
     def __init__(self, packet_id: int):
         params = {
-            "packet_length":                0x0b,  # Default length (11)
-            "mx_speak_signature":           0xe4,  # (228)
+            "packet_length":                config.get_packet_length(MXSpeakVersion.MX_SPEAK6),
+            "mx_speak_signature":           config.get_mx_signature(),
             "network_node":                 0x00,
             "channel":                      0x00,
             "destination_channel_address":  0x00,
