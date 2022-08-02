@@ -60,7 +60,10 @@ class Content(IByteContainer):
     #
     # @return The parameter contained at the specified key.
     def get_parameter(self, key):
-        pass
+        if not self.check_exists(key):
+            raise AttributeError(f"'{key}' can not be found in content parameters.")
+
+        return self._params[key]
 
     ## Returns the content object as a string.
     #
