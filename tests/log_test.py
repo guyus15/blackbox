@@ -11,7 +11,6 @@ import src.log as log
 from unittest.mock import patch
 from io import StringIO
 
-
 # Override the config path just for the tests.
 config.CONFIG_PATH = "config.json"
 
