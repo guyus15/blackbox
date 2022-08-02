@@ -87,3 +87,25 @@ class TestContent(unittest.TestCase):
 
         exception = cm.exception
         self.assertIsNotNone(exception)
+
+    # Test 8
+    def test_get_parameter_valid_key(self):
+        # This test ensures that when the get_parameter() method is called with an existing key,
+        # the value corresponding to that key is returned.
+        global this_content
+
+        target_key = "size"
+
+        self.assertEqual(this_content.get_parameter(target_key), this_content._params[target_key])
+
+    # Test 9
+    def test_get_parameter_invalid_key(self):
+        # This test ensures that when the get_parameter() method is called with a non-existent key,
+        # an AttributeError is raised.
+        global this_content
+
+        with self.assertRaises(AttributeError) as cm:
+            this_content.get_parameter("non-existent parameter")
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)
