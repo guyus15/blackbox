@@ -64,3 +64,12 @@ class TestConfig(unittest.TestCase):
 
         exception = cm.exception
         self.assertIsNotNone(exception)
+
+    # Test 6
+    def test_get_test_start_directory(self):
+        # This test ensures that the get_test_start_directory() function will return the
+        # correct path of the start-directory from the configuration file.
+        global this_config
+
+        self.assertEqual(config.get_test_start_directory(), this_config["testing"]["start-directory"])
+

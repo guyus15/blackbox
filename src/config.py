@@ -57,6 +57,16 @@ def get_log_dir() -> str:
     return config["logging"]["directory"]
 
 
+## Returns the path to the test start directory.
+#
+# @returns The path to the test start directory.
+def get_test_start_directory() -> str:
+    global config
+    load_config()
+
+    return config["testing"]["start-directory"]
+
+
 ## Returns MX Speak Signature.
 #
 # @return The MX Speak Signature for data packets.
