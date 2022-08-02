@@ -29,3 +29,11 @@ class IByteContainer(abc.ABC):
     @abc.abstractmethod
     def get_parameter(self, key: str):
         pass
+
+    ## Gets all the content parameters
+    #
+    # @return The parameters of the content object.
+    @abc.abstractmethod
+    def get_parameters(self) -> dict:
+        pass
+    
