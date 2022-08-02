@@ -36,4 +36,3 @@ class IByteContainer(abc.ABC):
     @abc.abstractmethod
     def get_parameters(self) -> dict:
         pass
-    

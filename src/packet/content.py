@@ -65,6 +65,12 @@ class Content(IByteContainer):
 
         return self._params[key]
 
+    ## Gets all the content parameters
+    #
+    # @return The parameters of the content object.
+    def get_parameters(self) -> dict:
+        return self._params
+
     ## Returns the content object as a string.
     #
     # @return The string representation of the content object.

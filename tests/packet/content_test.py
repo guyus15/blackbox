@@ -109,3 +109,21 @@ class TestContent(unittest.TestCase):
 
         exception = cm.exception
         self.assertIsNotNone(exception)
+
+    # Test 10
+    def test_get_parameters(self):
+        # This test ensures that when the get_parameters() method is called, it returns all content
+        # parameters
+
+        new_content = content.Content(value1=0, value2=1, value3=2)
+
+        parameters = new_content.get_parameters()
+
+        # Check length
+        self.assertEqual(len(parameters), 3)
+
+        # Check items
+        self.assertEqual(parameters["value1"], 0)
+        self.assertEqual(parameters["value2"], 1)
+        self.assertEqual(parameters["value3"], 2)
+
