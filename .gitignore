@@ -2,3 +2,5 @@
 logs/
 src/__pycache__/
 tests/__pycache__/
+src/packet/__pycache__/
+tests/packet/__pycache__/
