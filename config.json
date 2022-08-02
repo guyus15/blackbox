@@ -4,6 +4,10 @@
     "enabled": true,
     "directory": "logs"
   },
+  "testing": {
+    "start-directory": "tests",
+    "discovery-pattern": "*_test.py"
+  },
   "packets": {
     "mx-speak-signature": 228,
     "mx5-default-packet-length": 9,
