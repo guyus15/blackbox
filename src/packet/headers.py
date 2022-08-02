@@ -23,7 +23,7 @@ class BaseHeader(Content):
 class LocalHeaderMX5(BaseHeader):
     def __init__(self, packet_id: int):
         params = {
-            "packet_length":                0x09,
+            "packet_length":                0x09,  # Default length
             "network_node":                 0x00,
             "channel":                      0x00,
             "destination_channel_address":  0x00,
@@ -32,6 +32,26 @@ class LocalHeaderMX5(BaseHeader):
             "source_task":                  0x00,
             "marker":                       0x00,
             "packet_id":                    packet_id
+        }
+
+        super().__init__(**params)
+
+
+## An MX Speak 6 Local Header, which is used when connected to the panel's COM2 serial port.
+class LocalHeaderMX6(BaseHeader):
+    def __init__(self, packet_id: int):
+        params = {
+            "packet_length":                0x0b,  # Default length (11)
+            "mx_speak_signature":           0xe4,  # (228)
+            "network_node":                 0x00,
+            "channel":                      0x00,
+            "destination_channel_address":  0x00,
+            "destination_task":             0x00,
+            "source_channel_address":       0x00,
+            "source_task":                  0x00,
+            "marker":                       0x00,
+            "packet_id":                    packet_id,
+            "reserved":                     0x00
         }
 
         super().__init__(**params)
