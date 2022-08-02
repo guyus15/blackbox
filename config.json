@@ -3,5 +3,10 @@
   "logging": {
     "enabled": true,
     "directory": "logs"
+  },
+  "packets": {
+    "mx-speak-signature": 228,
+    "mx5-default-packet-length": 9,
+    "mx6-default-packet-length": 11
   }
 }
