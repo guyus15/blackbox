@@ -12,6 +12,16 @@ class Content:
         for attr in kwargs:
             self._params[attr] = kwargs[attr]
 
+    ## Checks whether 'key' exists in the content parameters.
+    #
+    # @return True if 'key' exists, False if it doesn't.
+    def check_exists(self, key):
+        for attr in self._params:
+            if attr == key:
+                return True
+
+        return False
+
     ## Returns the content object as a string.
     #
     # @return The string representation of the content object.
