@@ -4,8 +4,7 @@
 
 import unittest
 from src.packet.packet import Packet
-from src.packet.headers import LocalHeaderMX5
-from src.packet.headers import LocalHeaderMX6
+from src.packet.headers import LocalHeaderMX5, LocalHeaderMX6
 
 this_packet = None
 
