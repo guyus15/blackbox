@@ -1,0 +1,44 @@
+## @file packet_test.py
+# @brief Contains tests to test the 'packet' file and class.
+# @author Guy Chamberlain-Webber
+
+import unittest
+from src.packet.packet import Packet
+from src.packet.headers import LocalHeaderMX5
+from src.packet.headers import LocalHeaderMX6
+
+this_packet = None
+
+
+class TestPacket(unittest.TestCase):
+    def setUp(self) -> None:
+        global this_packet
+
+        header = LocalHeaderMX5(0)
+
+        this_packet = Packet(
+            header,
+            value1=1,
+            value2=2,
+            value3=3
+        )
+
+    # Test 1
+    def test_mx5_packet_size(self):
+        # This test ensures that the size of a packet with a header type of MX Speak 5 with no
+        # contents will be 9.
+
+        header = LocalHeaderMX5(0)
+        mx5_packet = Packet(header)
+
+        self.assertEqual(len(mx5_packet._params), 9)
+
+    # Test 2
+    def test_mx6_packet_size(self):
+        # This test ensures that the size of a packet with a header type of MX Speak 6 with no
+        # contents will be 11.
+
+        header = LocalHeaderMX6(11)
+        mx6_packet = Packet(header)
+
+        self.assertEqual(len(mx6_packet._params), 11)
