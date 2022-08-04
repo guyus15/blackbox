@@ -42,3 +42,18 @@ class TestPacket(unittest.TestCase):
         mx6_packet = Packet(header)
 
         self.assertEqual(len(mx6_packet._params), 11)
+
+    # Test 3
+    # noinspection PyUnresolvedReferences
+    def test_packet_contents(self):
+        # This test ensures that the constructor of the Packet class behaves as expected by correctly merging
+        # together the parameters of the header and contents.
+
+        global this_packet
+
+        expected_contents = [b'\x09', b'\x00', b'\x00',
+                             b'\x00', b'\x00', b'\x00',
+                             b'\x00', b'\x00', b'\x00',
+                             b'\x01', b'\x02', b'\x03']
+
+        self.assertEqual(this_packet.get_byte_array(), expected_contents)
