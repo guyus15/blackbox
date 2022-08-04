@@ -9,6 +9,7 @@ from src.packet.headers import LocalHeaderMX5, LocalHeaderMX6
 this_packet = None
 
 
+## This test case tests the 'packet' file and class.
 class TestPacket(unittest.TestCase):
     def setUp(self) -> None:
         global this_packet
