@@ -10,21 +10,14 @@ from src.packet.content import Content
 ## Provides an abstraction of a data packet, which will be able to be transmitted to, and received
 # from the panel.
 class Packet(Content):
-    def __init__(self, header: BaseHeader, content: Content):
+    def __init__(self, header: BaseHeader, **kwargs):
+        super().__init__(**kwargs)
         if not isinstance(header, BaseHeader):
             raise AttributeError(f"'{type(header)}' is not of expected type, BaseHeader.")
-        if not isinstance(content, Content):
-            raise AttributeError(f"'{type(header)}' is not of expected type, Content.")
 
         self._header = header
-        self._content = content
 
-        # Combine parameters of header and content together
+        # Combine parameters of header and kwargs together
+        _params_copy = self._params
         self._params = header.get_parameters()
-        self._params.update(content.get_parameters())
-
-    def get_byte_array(self) -> list:
-        header_array = self._header.get_byte_array()
-        content_array = self._content.get_byte_array()
-
-        return header_array + content_array
+        self._params.update(_params_copy)
