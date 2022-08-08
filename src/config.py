@@ -136,3 +136,12 @@ def get_baudrate() -> int:
     global config
 
     return config["serial"]["baudrate"]
+
+
+## Returns the timeout value from the configuration file.
+#
+# @return The configured timeout value.
+def get_timeout() -> int:
+    global config
+
+    return config["serial"]["timeout"]

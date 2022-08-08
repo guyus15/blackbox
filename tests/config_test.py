@@ -115,3 +115,11 @@ class TestConfig(unittest.TestCase):
         global this_config
 
         self.assertEqual(config.get_baudrate(), this_config["serial"]["baudrate"])
+
+    # Test 11
+    def test_get_timeout(self):
+        # This test ensures that the get_timeout() function will return the correct
+        # timeout value specified in the configuration file.
+        global this_config
+
+        self.assertEqual(config.get_timeout(), this_config["serial"]["timeout"])
