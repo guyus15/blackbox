@@ -20,6 +20,7 @@
   "serial":
   {
     "baudrate": 115200,
-    "timeout": 0
+    "timeout": 0,
+    "byte-size": 8
   }
 }
