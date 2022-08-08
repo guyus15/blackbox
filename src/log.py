@@ -7,10 +7,7 @@ import sys
 import time
 import src.config as config
 
-
-## An exception raised when a platform type is not supported.
-class UnsupportedPlatformException (Exception):
-    pass
+from src.exceptions.unsupported_platform import UnsupportedPlatformException
 
 
 ## Creates a directory to store log files.
@@ -47,10 +44,10 @@ def write_log(entry: str, logfile: str):
 
     if plat == "win32":
         # Log on Windows
-        write_log_windows(entry, logfile);
+        write_log_windows(entry, logfile)
     elif plat == "linux":
         # Log on Linux
-        write_log_linux(entry, logfile);
+        write_log_linux(entry, logfile)
     else:
         # Unsupported platform
         raise UnsupportedPlatformException("The blackbox does not support platforms of type '{}'.".format(plat))
