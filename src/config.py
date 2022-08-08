@@ -107,6 +107,12 @@ def get_packet_length(mx_version: MXSpeakVersion) -> int:
     raise AttributeError(f"No default packet length found for {mx_version}")
 
 
+## Returns the name of the COM port from the configuration file.
+#
+# The function will return a COM port name from the configuration file. The return
+# will be dependent on if the target platform is Windows or Linux.
+#
+# @return The name of the COM port.
 def get_com_port() -> str:
     global config
 
@@ -121,4 +127,3 @@ def get_com_port() -> str:
     else:
         # Unsupported platform
         raise UnsupportedPlatformException("The blackbox does not support platforms of type '{}'.".format(plat))
-    
