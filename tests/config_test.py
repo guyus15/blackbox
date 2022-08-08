@@ -190,3 +190,42 @@ class TestConfig(unittest.TestCase):
 
         exception = cm.exception
         self.assertIsNotNone(exception)
+
+    # Test 17
+    def test_get_stopbits(self):
+        # This test ensures that when the get_stopbits() function is called, it will
+        # return the correct serial enum value corresponding to that value.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["stopbits"] = 1
+
+        self.assertEqual(config.get_stopbits(), serial.STOPBITS_ONE)
+
+    # Test 18
+    def test_get_stopbits_string(self):
+        # This test ensures that when the get_stopbits() function is called when the
+        # stopbits configuration has been set to a string, an InvalidValueException will be
+        # raised.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["stopbits"] = "some invalid stopbits value"
+
+        with self.assertRaises(InvalidValueException) as cm:
+            config.get_stopbits()
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)
+
+    # Test 19
+    def test_get_stopbits_invalid(self):
+        # This test ensures that when the get_stopbits() function is called with
+        # an invalid stopbits configuration, an InvalidValueException will be raised.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["stopbits"] = 5
+
+        with self.assertRaises(InvalidValueException) as cm:
+            config.get_stopbits()
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)

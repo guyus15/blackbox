@@ -128,7 +128,7 @@ def get_com_port() -> str:
         return config["com"]["linux"]
     else:
         # Unsupported platform
-        raise UnsupportedPlatformException("The blackbox does not support platforms of type '{}'.".format(plat))
+        raise UnsupportedPlatformException(f"The blackbox does not support platforms of type '{plat}'.")
 
 
 ## Returns the baudrate from the configuration file.
@@ -158,7 +158,7 @@ def get_bytesize() -> int:
     read_value = config["serial"]["bytesize"]
 
     if type(read_value) != int:
-        raise InvalidValueException("Invalid bytesize value: Bytesize must be an integer value.")
+        raise InvalidValueException(f"Invalid bytesize value '{read_value}': Bytesize must be an integer value.")
 
     if read_value == 5:
         return serial.FIVEBITS
@@ -169,7 +169,7 @@ def get_bytesize() -> int:
     elif read_value == 8:
         return serial.EIGHTBITS
     else:
-        raise InvalidValueException("Invalid bytesize value: Bytesize can only be 5, 6, 7 or 8.")
+        raise InvalidValueException(f"Invalid bytesize value '{read_value}': Bytesize value can only be 5, 6, 7 or 8.")
 
 
 ## Returns the parity value from the configuration file as a pyserial enum value.
@@ -194,4 +194,24 @@ def get_parity() -> int:
         return serial.PARITY_SPACE
     else:
         raise InvalidValueException(
-            "Invalid parity value: Parity can only be 'none', 'odd', 'even', 'mark', 'names', or 'space'.")
+            f"Invalid parity value {read_value}:"
+            f"Parity can only be 'none', 'odd', 'even', 'mark', 'names', or 'space'.")
+
+
+## Returns the stopbits value from the configuration file as a pyserial enum value.
+#
+# @return The pyserial enum value of the stopbits configuration.
+def get_stopbits() -> int:
+    global config
+
+    read_value = config["serial"]["stopbits"]
+
+    if type(read_value) != int:
+        raise InvalidValueException(f"Invalid stopbits value '{read_value}': Stopbits must be an integer value.")
+
+    if read_value == 1:
+        return serial.STOPBITS_ONE
+    elif read_value == 2:
+        return serial.STOPBITS_TWO
+    else:
+        raise InvalidValueException(f"Invalid stopbits value '{read_value}': Stopbits value must be either 1 or 2.")
