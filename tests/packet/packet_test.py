@@ -51,9 +51,10 @@ class TestPacket(unittest.TestCase):
 
         global this_packet
 
-        expected_contents = [b'\x09', b'\x00', b'\x00',
-                             b'\x00', b'\x00', b'\x00',
-                             b'\x00', b'\x00', b'\x00',
-                             b'\x01', b'\x02', b'\x03']
+        expected_contents = [0x01, 0x01, 0x09,
+                             0x00, 0x00, 0x00,
+                             0x00, 0x00, 0x00,
+                             0x00, 0x00, 0x01,
+                             0x02, 0x03, 0x0f]
 
         self.assertEqual(this_packet.get_byte_array(), expected_contents)
