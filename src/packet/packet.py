@@ -2,7 +2,6 @@
 # @brief Contains definition for the Packet class.
 # @author Guy Chamberlain-Webber
 
-from src.packet.byte_container import IByteContainer
 from src.packet.headers import BaseHeader
 from src.packet.content import Content
 
