@@ -83,7 +83,7 @@ class PacketID(enum.Enum):
     # These packet IDs are fixed and their values may be known
     # to external developers do NOT change them.
     spkd_ID_NET_SUPERVISOR_MODE = 128                 # 0x80 - MX Speak
-    spkd_ID_NET_SUPERVISED_PANEL_MODE =               # 0x81 - MX Speak
+    spkd_ID_NET_SUPERVISED_PANEL_MODE = 129           # 0x81 - MX Speak
     spkd_ID_SYSTEM_REMOTE_USER_INTERFACE_PRESENT = 130    # 0x82
     spkd_ID_EVENT_ACTION_ZONE_STATE_REQUEST = 131         # 0x83 - MX Speak
     spkd_ID_EVENT_ACTION_ZONE_INFORMATION_TRANSFER = 132  # 0x84 - MX Speak
@@ -202,12 +202,12 @@ class PacketID(enum.Enum):
     spkd_ID_DEVICE_REPLACEMENT_REPLY = 242            # 0xf2
     spkd_ID_FORCE_PRINTER_PAUSE_UNPAUSE = 243         # 0xf3
 
-    # These packets is internal, not to NGUI.
+    # These packets are internal, not to NGUI.
     spkd_ID_NGUI_FROM_DATA_SERVER_BASE = 244          # 0xf4
     spkd_ID_NGUI_CLIENT_SERVICE_SUPPORT = 245         # 0xf5
     spkd_ID_LOG_MANAGER_BASE = 246                    # 0xf6
 
-    # These packets is internal, not to NGUI.
+    # These packets are internal, not to NGUI.
     spkd_ID_NGUI_TO_DATA_SERVER_BASE = 247            # 0xf7
     spkd_ID_DIGITAL_MANAGER_BASE = 248                # 0xf8
 
