@@ -107,3 +107,11 @@ class TestConfig(unittest.TestCase):
         sys.platform = "linux"
 
         self.assertEqual(config.get_com_port(), this_config["com"]["linux"])
+
+    # Test 10
+    def test_get_baudrate(self):
+        # This test ensures that the get_baudrate() function will return the correct
+        # baudrate specified in the configuration file.
+        global this_config
+
+        self.assertEqual(config.get_baudrate(), this_config["baudrate"])

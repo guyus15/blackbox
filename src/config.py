@@ -127,3 +127,12 @@ def get_com_port() -> str:
     else:
         # Unsupported platform
         raise UnsupportedPlatformException("The blackbox does not support platforms of type '{}'.".format(plat))
+
+
+## Returns the baudrate from the configuration file.
+#
+# @return The configured baudrate.
+def get_baudrate() -> int:
+    global config
+
+    return config["baudrate"]
