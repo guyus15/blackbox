@@ -21,6 +21,7 @@
   {
     "baudrate": 115200,
     "timeout": 0,
-    "byte-size": 8
+    "bytesize": 8,
+    "parity": "none"
   }
 }
