@@ -31,21 +31,14 @@ class Content(IByteContainer):
     def get_byte_array(self) -> list:
         byte_array = []
 
-        for attr in self._params:
-            target = self._params[attr]
-            byte_rep = None
-
-            if isinstance(target, int):
-                byte_rep = target.to_bytes(1, byteorder='big', signed=False)
-            elif isinstance(target, str):
-                for character in target:
-                    byte_array.append(bytes(character, encoding='utf-8'))
-
-            # Not worth adding to byte array
-            if byte_rep is None:
-                continue
-
-            byte_array.append(byte_rep)
+        for attr in self._params.values():
+            if type(attr) == int:
+                byte_array.append(attr)
+            elif type(attr) == str:
+                for char in attr:
+                    char_to_byte = bytes(char, encoding='utf-8')
+                    byte_to_int = int.from_bytes(char_to_byte, 'little')
+                    byte_array.append(byte_to_int)
 
         return byte_array
 

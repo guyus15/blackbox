@@ -50,7 +50,7 @@ class TestContent(unittest.TestCase):
         # a byte of array representing the content parameter values.
         global this_content
 
-        expected_result = [b'\x0a', b'\x89', b'\x7b']
+        expected_result = [0x0a, 0x89, 0x7b]
 
         self.assertEqual(this_content.get_byte_array(), expected_result)
 
@@ -61,7 +61,7 @@ class TestContent(unittest.TestCase):
 
         new_content = content.Content(some_string="string1")
 
-        expected_result = [b"\x73", b"\x74", b"\x72", b"\x69", b"\x6e", b"\x67", b"\x31"]
+        expected_result = [0x73, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x31]
 
         self.assertEqual(new_content.get_byte_array(), expected_result)
 
