@@ -16,5 +16,6 @@
   "com": {
     "windows": "COM6",
     "linux": "ttyUSB0"
-  }
+  },
+  "baudrate": 115200
 }
