@@ -121,5 +121,4 @@ def get_com_port() -> str:
     else:
         # Unsupported platform
         raise UnsupportedPlatformException("The blackbox does not support platforms of type '{}'.".format(plat))
-
-# TODO add tests to config_test regarding get_com_port()
+    
