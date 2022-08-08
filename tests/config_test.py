@@ -166,3 +166,27 @@ class TestConfig(unittest.TestCase):
 
         exception = cm.exception
         self.assertIsNotNone(exception)
+
+    # Test 15
+    def test_get_parity(self):
+        # This test ensures that when the get_parity() function is called, it will
+        # return the correct serial enum value corresponding to that value.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["parity"] = "none"
+
+        self.assertEqual(config.get_parity(), serial.PARITY_NONE)
+
+    # Test 16
+    def test_get_parity_invalid(self):
+        # This test ensures that when the get_parity() function is called with an
+        # invalid parity configuration, an InvalidValueException will be raised.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["parity"] = "some invalid parity"
+
+        with self.assertRaises(InvalidValueException) as cm:
+            config.get_parity()
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)

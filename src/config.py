@@ -151,14 +151,14 @@ def get_timeout() -> int:
 
 ## Returns the bytesize value from the configuration file as a pyserial enum value.
 #
-# @returns The pyserial enum value of the bytesize configuration.
+# @return The pyserial enum value of the bytesize configuration.
 def get_bytesize() -> int:
     global config
 
     read_value = config["serial"]["bytesize"]
 
     if type(read_value) != int:
-        raise InvalidValueException("Bytesize must be an integer value.")
+        raise InvalidValueException("Invalid bytesize value: Bytesize must be an integer value.")
 
     if read_value == 5:
         return serial.FIVEBITS
@@ -169,4 +169,29 @@ def get_bytesize() -> int:
     elif read_value == 8:
         return serial.EIGHTBITS
     else:
-        raise InvalidValueException("Bytesize can only be 5, 6, 7 or 8.")
+        raise InvalidValueException("Invalid bytesize value: Bytesize can only be 5, 6, 7 or 8.")
+
+
+## Returns the parity value from the configuration file as a pyserial enum value.
+#
+# @return The pyserial enum value of the parity configuration.
+def get_parity() -> int:
+    global config
+
+    read_value = config["serial"]["parity"]
+
+    if read_value == "none":
+        return serial.PARITY_NONE
+    elif read_value == "odd":
+        return serial.PARITY_ODD
+    elif read_value == "even":
+        return serial.PARITY_EVEN
+    elif read_value == "mark":
+        return serial.PARITY_MARK
+    elif read_value == "names":
+        return serial.PARITY_NAMES
+    elif read_value == "space":
+        return serial.PARITY_SPACE
+    else:
+        raise InvalidValueException(
+            "Invalid parity value: Parity can only be 'none', 'odd', 'even', 'mark', 'names', or 'space'.")
