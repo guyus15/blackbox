@@ -1,7 +1,7 @@
 ## @file config_test.py
 # @brief Contains tests to test the 'config' module.
 # @author Guy Chamberlain-Webber
-
+import sys
 import unittest
 import json
 import src.config as config
@@ -60,6 +60,7 @@ class TestConfig(unittest.TestCase):
         # will raise an AttributeError.
 
         with self.assertRaises(AttributeError) as cm:
+            # noinspection PyTypeChecker
             config.get_packet_length(10)
 
         exception = cm.exception
@@ -80,3 +81,29 @@ class TestConfig(unittest.TestCase):
         global this_config
 
         self.assertEqual(config.get_test_discovery_pattern(), this_config["testing"]["discovery-pattern"])
+
+    # Test 8
+    def test_get_com_port_windows(self):
+        # This test ensures that the get_com_port() function will return the correct
+        # COM port name depending on the platform that the program is being run with.
+        # In this case the function should return the "windows" COM port name from the
+        # configuration.
+        global this_config
+
+        # Hard coding for test purposes.
+        sys.platform = "win32"
+
+        self.assertEqual(config.get_com_port(), this_config["com"]["windows"])
+
+    # Test 9
+    def test_get_com_port_linux(self):
+        # This test ensures that the get_com_port() function will return the correct
+        # COM port name depending on the platform that the program is being run with.
+        # In this case the function should return the "linux" COM port name from the
+        # configuration.
+        global this_config
+
+        # Hard coding for test purposes.
+        sys.platform = "linux"
+
+        self.assertEqual(config.get_com_port(), this_config["com"]["linux"])

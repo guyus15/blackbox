@@ -2,8 +2,11 @@
 # @brief Contains utility functions for reading configuration information from the configuration file.
 # @author Guy Chamberlain-Webber
 
+import sys
 import json
 import enum
+
+from src.exceptions.unsupported_platform import UnsupportedPlatformException
 
 CONFIG_PATH = "config.json"
 
@@ -102,3 +105,21 @@ def get_packet_length(mx_version: MXSpeakVersion) -> int:
         return config["packets"]["mx6-default-packet-length"]
 
     raise AttributeError(f"No default packet length found for {mx_version}")
+
+
+def get_com_port() -> str:
+    global config
+
+    plat = sys.platform
+
+    if plat == "win32":
+        # Return the configured windows COM port.
+        return config["com"]["windows"]
+    elif plat == "linux":
+        # Return the configured Linux COM port.
+        return config["com"]["linux"]
+    else:
+        # Unsupported platform
+        raise UnsupportedPlatformException("The blackbox does not support platforms of type '{}'.".format(plat))
+
+# TODO add tests to config_test regarding get_com_port()
