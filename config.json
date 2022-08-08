@@ -19,6 +19,7 @@
   },
   "serial":
   {
-    "baudrate": 115200
+    "baudrate": 115200,
+    "timeout": 0
   }
 }
