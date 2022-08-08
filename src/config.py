@@ -5,8 +5,10 @@
 import sys
 import json
 import enum
+import serial
 
 from src.exceptions.unsupported_platform import UnsupportedPlatformException
+from src.exceptions.invalid_value import InvalidValueException
 
 CONFIG_PATH = "config.json"
 
@@ -145,3 +147,26 @@ def get_timeout() -> int:
     global config
 
     return config["serial"]["timeout"]
+
+
+## Returns the bytesize value from the configuration file as a pyserial enum value.
+#
+# @returns The pyserial enum value of the bytesize configuration.
+def get_bytesize() -> int:
+    global config
+
+    read_value = config["serial"]["bytesize"]
+
+    if type(read_value) != int:
+        raise InvalidValueException("Bytesize must be an integer value.")
+
+    if read_value == 5:
+        return serial.FIVEBITS
+    elif read_value == 6:
+        return serial.SIXBITS
+    elif read_value == 7:
+        return serial.SEVENBITS
+    elif read_value == 8:
+        return serial.EIGHTBITS
+    else:
+        raise InvalidValueException("Bytesize can only be 5, 6, 7 or 8.")

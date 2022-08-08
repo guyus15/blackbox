@@ -4,7 +4,10 @@
 import sys
 import unittest
 import json
+import serial
 import src.config as config
+
+from src.exceptions.invalid_value import InvalidValueException
 
 this_config = dict()
 
@@ -123,3 +126,43 @@ class TestConfig(unittest.TestCase):
         global this_config
 
         self.assertEqual(config.get_timeout(), this_config["serial"]["timeout"])
+
+    # Test 12
+    def test_get_bytesize_valid(self):
+        # This test ensures that when the get_bytesize() function is called, it will
+        # return the correct serial enum value corresponding to that value.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["bytesize"] = 8
+
+        self.assertEqual(config.get_bytesize(), serial.EIGHTBITS)
+
+    # Test 13
+    def test_get_bytesize_string(self):
+        # This test ensures that when the get_bytesize() function is called when
+        # a string is set to the bytesize value in the configuration file, an
+        # InvalidValueException will be raised.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["bytesize"] = "some string"
+
+        with self.assertRaises(InvalidValueException) as cm:
+            config.get_bytesize()
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)
+
+    # Test 14
+    def test_get_bytesize_out_of_range(self):
+        # This test ensures that when the get_bytesize() function is called when
+        # the bytesize value of the configuration file is set to an out of range
+        # integer, an InvalidValueException will be raised.
+
+        # Hard-coded for test purposes.
+        config.config["serial"]["bytesize"] = 20
+
+        with self.assertRaises(InvalidValueException) as cm:
+            config.get_bytesize()
+
+        exception = cm.exception
+        self.assertIsNotNone(exception)
