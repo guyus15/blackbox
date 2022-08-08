@@ -135,4 +135,4 @@ def get_com_port() -> str:
 def get_baudrate() -> int:
     global config
 
-    return config["baudrate"]
+    return config["serial"]["baudrate"]

@@ -114,4 +114,4 @@ class TestConfig(unittest.TestCase):
         # baudrate specified in the configuration file.
         global this_config
 
-        self.assertEqual(config.get_baudrate(), this_config["baudrate"])
+        self.assertEqual(config.get_baudrate(), this_config["serial"]["baudrate"])
