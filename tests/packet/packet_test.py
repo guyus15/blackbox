@@ -5,6 +5,7 @@
 import unittest
 from src.packet.packet import Packet
 from src.packet.headers import LocalHeaderMX5, LocalHeaderMX6
+from src.packet.packet_ids import PacketID
 
 this_packet = None
 
@@ -14,7 +15,7 @@ class TestPacket(unittest.TestCase):
     def setUp(self) -> None:
         global this_packet
 
-        header = LocalHeaderMX5(0)
+        header = LocalHeaderMX5(PacketID.INVALID)
 
         this_packet = Packet(
             header,
@@ -28,7 +29,7 @@ class TestPacket(unittest.TestCase):
         # This test ensures that the size of a packet with a header type of MX Speak 5 with no
         # contents will be 9.
 
-        header = LocalHeaderMX5(0)
+        header = LocalHeaderMX5(PacketID.INVALID)
         mx5_packet = Packet(header)
 
         self.assertEqual(len(mx5_packet._params), 9)
@@ -38,7 +39,7 @@ class TestPacket(unittest.TestCase):
         # This test ensures that the size of a packet with a header type of MX Speak 6 with no
         # contents will be 11.
 
-        header = LocalHeaderMX6(11)
+        header = LocalHeaderMX6(PacketID.NET_VERSION_REQUEST)
         mx6_packet = Packet(header)
 
         self.assertEqual(len(mx6_packet._params), 11)

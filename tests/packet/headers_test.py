@@ -4,6 +4,7 @@
 
 import unittest
 from src.packet.headers import LocalHeaderMX5, LocalHeaderMX6
+from src.packet.packet_ids import PacketID
 from src.exceptions.parameter_not_found import ParameterNotFoundException
 from src.exceptions.invalid_value import InvalidValueException
 
@@ -16,7 +17,7 @@ class TestHeaders(unittest.TestCase):
         # it contains the correct values.
 
         # MX Speak packet header, ID of 0.
-        mx5_header = LocalHeaderMX5(0)
+        mx5_header = LocalHeaderMX5(PacketID.INVALID)
 
         expected_value = [9, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -28,7 +29,7 @@ class TestHeaders(unittest.TestCase):
         # it contains the correct values.
 
         # MX Speak packet header, ID of 0.
-        mx6_header = LocalHeaderMX6(0)
+        mx6_header = LocalHeaderMX6(PacketID.INVALID)
 
         expected_value = [11, 228, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
@@ -39,7 +40,7 @@ class TestHeaders(unittest.TestCase):
         # This test ensures that it is possible to override an MX5 header's contents
         # if further arguments are provided in the initialiser.
 
-        mx5_header = LocalHeaderMX5(182,
+        mx5_header = LocalHeaderMX5(PacketID.RESTART_REQUEST,
                                     network_node=10,
                                     channel=5,
                                     destination_task=1
@@ -55,7 +56,11 @@ class TestHeaders(unittest.TestCase):
         # by adding additional arguments. A ParameterNotFoundException should be raised.
 
         with self.assertRaises(ParameterNotFoundException) as cm:
-            mx5_header = LocalHeaderMX5(182, non_existent=10, another=15, yet_another=20)
+            mx5_header = LocalHeaderMX5(PacketID.RESTART_REQUEST,
+                                        non_existent=10,
+                                        another=15,
+                                        yet_another=20
+                                        )
 
         exception = cm.exception
         self.assertIsNotNone(exception)
@@ -65,13 +70,13 @@ class TestHeaders(unittest.TestCase):
         # This test ensures that it is possible to override an MX6 header's contents
         # if further arguments are provided to the initialiser.
 
-        mx6_header = LocalHeaderMX6(149,
+        mx6_header = LocalHeaderMX6(PacketID.POINT_INFO_REQUEST,
                                     network_node=1,
                                     channel=10,
                                     destination_task=5
                                     )
 
-        expected_value = [11, 228, 1, 10, 0, 5, 0, 0, 0, 149, 0]
+        expected_value = [11, 228, 1, 10, 0, 5, 0, 0, 0, 148, 0]
 
         self.assertEqual(mx6_header.get_byte_array(), expected_value)
 
@@ -81,7 +86,7 @@ class TestHeaders(unittest.TestCase):
         # if it is attempted, an InvalidValueException will be raised.
 
         with self.assertRaises(InvalidValueException) as cm:
-            mx6_header = LocalHeaderMX6(150,
+            mx6_header = LocalHeaderMX6(PacketID.PANEL_DETAILS_REQUEST,
                                         mx_speak_signature=200
                                         )
 
@@ -94,7 +99,11 @@ class TestHeaders(unittest.TestCase):
         # by adding additional arguments. A ParameterNotFoundException should be raised.
 
         with self.assertRaises(ParameterNotFoundException) as cm:
-            mx6_header = LocalHeaderMX6(150, non_existent=10, another=15, yet_anothe=20)
+            mx6_header = LocalHeaderMX6(PacketID.PANEL_DETAILS_REQUEST,
+                                        non_existent=10,
+                                        another=15,
+                                        yet_anothe=20
+                                        )
 
         exception = cm.exception
         self.assertIsNotNone(exception)
