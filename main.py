@@ -19,14 +19,7 @@ def run():
                             )
     new_packet = Packet(header)
 
-    with serial.Serial(port=config.get_com_port(),
-                       baudrate=config.get_baudrate(),
-                       timeout=config.get_timeout(),
-                       bytesize=config.get_bytesize(),
-                       parity=config.get_parity(),
-                       stopbits=config.get_stopbits()) as ser:
-
-        ser.write(new_packet.get_byte_array())
+    new_packet.write()
 
 
 if __name__ == "__main__":

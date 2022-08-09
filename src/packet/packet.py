@@ -2,8 +2,12 @@
 # @brief Contains definition for the Packet class.
 # @author Guy Chamberlain-Webber
 
+import abc
+
 from src.packet.headers import BaseHeader
 from src.packet.content import Content
+from src.packet.serial_data_transfer import SerialDataTransfer
+from src.packet.writable import IWritable
 
 soh = 0x01
 seq = 0x01
@@ -11,7 +15,7 @@ seq = 0x01
 
 ## Provides an abstraction of a data packet, which will be able to be transmitted to, and received
 # from the panel.
-class Packet(Content):
+class Packet(Content, IWritable):
     def __init__(self, header: BaseHeader, **kwargs):
         super().__init__(**kwargs)
         if not isinstance(header, BaseHeader):
@@ -45,3 +49,10 @@ class Packet(Content):
         default_array.append(checksum)
 
         return default_array
+
+    ## Writes to a serial communications port.
+    def write(self):
+        serial = SerialDataTransfer()
+
+        data = self.get_byte_array()
+        serial.write(data)
