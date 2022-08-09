@@ -7,11 +7,12 @@ import src.config as config
 
 from src.packet.packet import Packet
 from src.packet.headers import LocalHeaderMX5
+from src.packet.packet_ids import PacketID
 
 
 def run():
     # Creating and sending a panel restart packet.
-    header = LocalHeaderMX5(182,
+    header = LocalHeaderMX5(PacketID.RESTART_REQUEST,
                             channel=0x06,
                             destination_channel_address=0x1d,
                             source_channel_address=0x1d
