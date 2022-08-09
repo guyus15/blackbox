@@ -15,7 +15,7 @@
   },
   "com": {
     "windows": "COM6",
-    "linux": "ttyUSB0"
+    "linux": "/dev/ttyUSB0"
   },
   "serial":
   {
