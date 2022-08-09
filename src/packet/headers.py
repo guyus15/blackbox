@@ -5,8 +5,10 @@
 import src.config as config
 from src.config import MXSpeakVersion
 from src.packet.content import Content
+from src.packet.packet_ids import PacketID
 from src.exceptions.parameter_not_found import ParameterNotFoundException
 from src.exceptions.invalid_value import InvalidValueException
+
 
 ## Base header class.
 class BaseHeader(Content):
@@ -24,7 +26,7 @@ class BaseHeader(Content):
 
 ## An MX Speak 5 Local Header, which is used when connected to the panel's COM2 serial port.
 class LocalHeaderMX5(BaseHeader):
-    def __init__(self, packet_id: int, **kwargs):
+    def __init__(self, packet_id: PacketID, **kwargs):
         params = {
             "packet_length":                config.get_packet_length(MXSpeakVersion.MX_SPEAK5),
             "network_node":                 0x00,
@@ -34,7 +36,7 @@ class LocalHeaderMX5(BaseHeader):
             "source_channel_address":       0x00,
             "source_task":                  0x00,
             "marker":                       0x00,
-            "packet_id":                    packet_id
+            "packet_id":                    packet_id.value
         }
 
         super().__init__(**params)
@@ -49,7 +51,7 @@ class LocalHeaderMX5(BaseHeader):
 
 ## An MX Speak 6 Local Header, which is used when connected to the panel's COM2 serial port.
 class LocalHeaderMX6(BaseHeader):
-    def __init__(self, packet_id: int, **kwargs):
+    def __init__(self, packet_id: PacketID, **kwargs):
         params = {
             "packet_length":                config.get_packet_length(MXSpeakVersion.MX_SPEAK6),
             "mx_speak_signature":           config.get_mx_signature(),
@@ -60,7 +62,7 @@ class LocalHeaderMX6(BaseHeader):
             "source_channel_address":       0x00,
             "source_task":                  0x00,
             "marker":                       0x00,
-            "packet_id":                    packet_id,
+            "packet_id":                    packet_id.value,
             "reserved":                     0x00
         }
 
