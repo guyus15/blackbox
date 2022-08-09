@@ -7,9 +7,6 @@ import abc
 
 
 ## An interface containing specific byte-related functions.
-#
-# Python does not officially support interfaces, so we use a NotImplemented
-# exception to ensure that functions are defined elsewhere.
 class IByteContainer(abc.ABC):
     ## Gets an object as an array of bytes.
     #
