@@ -2,10 +2,8 @@
 # @brief Contains definition for the Packet class.
 # @author Guy Chamberlain-Webber
 
-import abc
-
-from src.packet.headers import BaseHeader
 from src.packet.content import Content
+from src.packet.headers import BaseHeader
 from src.packet.serial_data_transfer import SerialDataTransfer
 from src.packet.writable import IWritable
 
@@ -37,15 +35,16 @@ class Packet(Content, IWritable):
     def get_byte_array(self) -> list:
         default_array = super().get_byte_array()
 
+        default_array.insert(0, seq)
+
         checksum = 0
         for byte in default_array:
             checksum += byte
 
         # Modulus operation to ensure checksum can be contained within one byte.
-        checksum %= 255
+        checksum %= 256
 
         default_array.insert(0, soh)
-        default_array.insert(1, seq)
         default_array.append(checksum)
 
         return default_array
