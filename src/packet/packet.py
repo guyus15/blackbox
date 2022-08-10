@@ -7,13 +7,27 @@ from src.packet.headers import BaseHeader
 from src.packet.serial_data_transfer import SerialDataTransfer
 from src.packet.writable import IWritable
 
-soh = 0x01
-seq = 0x01
+SOH = 0x01  # Start of frame
+ACK = 0x06  # Acknowledge
+SEQ_WRAP = 0x0f  # Number to wrap the SEQ
+
+
+## Increments the sequence number.
+#
+# Once the sequence number becomes greater than the
+# max sequence number (15), it will wrap back round to zero.
+def increment_seq():
+    Packet.seq += 1
+
+    if Packet.seq > SEQ_WRAP:
+        seq = 0x01
 
 
 ## Provides an abstraction of a data packet, which will be able to be transmitted to, and received
 # from the panel.
 class Packet(Content, IWritable):
+    seq = 0x01  # Sequence number
+
     def __init__(self, header: BaseHeader, **kwargs):
         super().__init__(**kwargs)
         if not isinstance(header, BaseHeader):
@@ -35,7 +49,7 @@ class Packet(Content, IWritable):
     def get_byte_array(self) -> list:
         default_array = super().get_byte_array()
 
-        default_array.insert(0, seq)
+        default_array.insert(0, Packet.seq)
 
         checksum = 0
         for byte in default_array:
@@ -44,7 +58,7 @@ class Packet(Content, IWritable):
         # Modulus operation to ensure checksum can be contained within one byte.
         checksum %= 256
 
-        default_array.insert(0, soh)
+        default_array.insert(0, SOH)
         default_array.append(checksum)
 
         return default_array
@@ -55,3 +69,5 @@ class Packet(Content, IWritable):
 
         data = self.get_byte_array()
         serial.write(data)
+
+        increment_seq()
