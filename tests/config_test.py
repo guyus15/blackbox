@@ -94,10 +94,15 @@ class TestConfig(unittest.TestCase):
         # configuration.
         global this_config
 
+        # Make a copy of sys.platform
+        temp_plat = sys.platform
+
         # Hard coding for test purposes.
         sys.platform = "win32"
 
         self.assertEqual(config.get_com_port(), this_config["com"]["windows"])
+
+        sys.platform = temp_plat
 
     # Test 9
     def test_get_com_port_linux(self):
@@ -107,10 +112,15 @@ class TestConfig(unittest.TestCase):
         # configuration.
         global this_config
 
+        # Make a copy of sys.platform
+        temp_plat = sys.platform
+
         # Hard coding for test purposes.
         sys.platform = "linux"
 
         self.assertEqual(config.get_com_port(), this_config["com"]["linux"])
+
+        sys.platform = temp_plat
 
     # Test 10
     def test_get_baudrate(self):
