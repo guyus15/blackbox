@@ -1,12 +1,13 @@
 ## @file config_test.py
 # @brief Contains tests to test the 'config' module.
 # @author Guy Chamberlain-Webber
+import json
 import sys
 import unittest
-import json
-import serial
-import src.config as config
 
+import serial
+
+import src.config as config
 from src.exceptions.invalid_value import InvalidValueException
 
 this_config = dict()
@@ -229,3 +230,9 @@ class TestConfig(unittest.TestCase):
 
         exception = cm.exception
         self.assertIsNotNone(exception)
+
+    @classmethod
+    def tearDownClass(cls) -> None:
+        with open(config.CONFIG_PATH) as fd:
+            contents = fd.read()
+            config.config = json.loads(contents)
