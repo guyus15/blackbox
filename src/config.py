@@ -118,6 +118,7 @@ def get_packet_length(mx_version: MXSpeakVersion) -> int:
 # @return The name of the COM port.
 def get_com_port() -> str:
     global config
+    load_config()
 
     plat = sys.platform
 
@@ -137,6 +138,7 @@ def get_com_port() -> str:
 # @return The configured baudrate.
 def get_baudrate() -> int:
     global config
+    load_config()
 
     return config["serial"]["baudrate"]
 
@@ -146,6 +148,7 @@ def get_baudrate() -> int:
 # @return The configured timeout value.
 def get_timeout() -> int:
     global config
+    load_config()
 
     return config["serial"]["timeout"]
 
@@ -155,6 +158,7 @@ def get_timeout() -> int:
 # @return The pyserial enum value of the bytesize configuration.
 def get_bytesize() -> int:
     global config
+    load_config()
 
     read_value = config["serial"]["bytesize"]
 
@@ -178,6 +182,7 @@ def get_bytesize() -> int:
 # @return The pyserial enum value of the parity configuration.
 def get_parity() -> int:
     global config
+    load_config()
 
     read_value = config["serial"]["parity"]
 
@@ -204,6 +209,7 @@ def get_parity() -> int:
 # @return The pyserial enum value of the stopbits configuration.
 def get_stopbits() -> int:
     global config
+    load_config()
 
     read_value = config["serial"]["stopbits"]
 
@@ -223,5 +229,6 @@ def get_stopbits() -> int:
 # @return The time period value.
 def get_time_period() -> int:
     global config
+    load_config()
 
     return config["time-period"]
