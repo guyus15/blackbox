@@ -1,7 +1,6 @@
 ## @file packet.py
 # @brief Contains definition for the Packet class.
 # @author Guy Chamberlain-Webber
-import threading
 
 from src.packet.content import Content
 from src.packet.headers import BaseHeader
@@ -81,9 +80,6 @@ class Packet(Content, IWritable, IReadable):
         print(f"Reading {size} bytes of data.")
 
         serial = SerialDataTransfer()
-
-        # Create a new thread to handle reading from serial communication port.
-        thread = threading.Thread(target=serial.read, args=(size,))
 
         has_data = False
 
