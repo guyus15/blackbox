@@ -14,7 +14,7 @@ class Clock:
     # time.
     #
     # @return True if 'seconds' have passed since the start time, False if not.
-    def can_run_after(self, seconds: int) -> bool:
+    def time_elapsed(self, seconds: int) -> bool:
         if self.start_true:
             self.start_true = False
             return True
