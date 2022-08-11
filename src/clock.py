@@ -6,14 +6,19 @@ import time
 
 
 class Clock:
-    def __init__(self):
+    def __init__(self, start_true: bool = False):
         self.start_time = time.time()
+        self.start_true = start_true
 
     ## Returns true if a number of elapsed 'seconds' have passed since the start
     # time.
     #
     # @return True if 'seconds' have passed since the start time, False if not.
     def can_run_after(self, seconds: int) -> bool:
+        if self.start_true:
+            self.start_true = False
+            return True
+
         current_time = time.time()
         elapsed_time = current_time - self.start_time
 
@@ -23,4 +28,3 @@ class Clock:
             return True
 
         return False
-
