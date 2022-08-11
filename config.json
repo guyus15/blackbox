@@ -17,8 +17,7 @@
     "windows": "COM6",
     "linux": "/dev/ttyUSB0"
   },
-  "serial":
-  {
+  "serial": {
     "baudrate": 115200,
     "timeout": 0,
     "bytesize": 8,
