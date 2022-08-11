@@ -2,13 +2,14 @@
 # @brief Contains utility functions for reading configuration information from the configuration file.
 # @author Guy Chamberlain-Webber
 
-import sys
-import json
 import enum
+import json
+import sys
+
 import serial
 
-from src.exceptions.unsupported_platform import UnsupportedPlatformException
 from src.exceptions.invalid_value import InvalidValueException
+from src.exceptions.unsupported_platform import UnsupportedPlatformException
 
 CONFIG_PATH = "config.json"
 
