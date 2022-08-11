@@ -18,9 +18,9 @@ SEQ_WRAP = 0x0f  # Number to wrap the SEQ
 # max sequence number (15), it will wrap back round to zero.
 def increment_seq():
     Packet.seq += 1
-
+    
     if Packet.seq > SEQ_WRAP:
-        seq = 0x01
+        Packet.seq = 0x01
 
 
 ## Provides an abstraction of a data packet, which will be able to be transmitted to, and received
