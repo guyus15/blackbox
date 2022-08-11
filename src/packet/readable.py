@@ -9,5 +9,5 @@ import abc
 class IReadable(abc.ABC):
     ## Reads from a serial communications port.
     @abc.abstractmethod
-    def read(self):
+    def read(self, size: int):
         pass

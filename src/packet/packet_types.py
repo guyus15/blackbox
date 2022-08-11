@@ -41,6 +41,13 @@ class PanelDetailsRequestMX5(IWritable):
     def write(self):
         self.packet.write()
 
+    # Reads data from a communications port by calling the underlying
+    # packet read method.
+    #
+    # @return The data read (if any).
+    def read(self) -> list:
+        return self.packet.read(response_sizes.get(type(self)))
+
 
 ## A class representing a panel information request (MX6).
 class PanelDetailsRequestMX6(IWritable):
@@ -51,3 +58,18 @@ class PanelDetailsRequestMX6(IWritable):
     # Writes to a serial communications port.
     def write(self):
         self.packet.write()
+
+    # Reads data from a communications port by calling the underlying
+    # packet read method.
+    #
+    # @return The data read (if any).
+    def read(self) -> list:
+        return self.packet.read(response_sizes.get(type(self)))
+
+
+# A dictionary containing concrete packets respective to their expected response packet's size (i.e. you send
+# a MX5 Panel Details request, you expected a response of size 29).
+response_sizes = {
+    PanelDetailsRequestMX5: 30,
+    PanelDetailsRequestMX6: 31
+}

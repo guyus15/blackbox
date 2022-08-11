@@ -1,9 +1,11 @@
 ## @file packet.py
 # @brief Contains definition for the Packet class.
 # @author Guy Chamberlain-Webber
+import threading
 
 from src.packet.content import Content
 from src.packet.headers import BaseHeader
+from src.packet.readable import IReadable
 from src.packet.serial_data_transfer import SerialDataTransfer
 from src.packet.writable import IWritable
 
@@ -18,14 +20,14 @@ SEQ_WRAP = 0x0f  # Number to wrap the SEQ
 # max sequence number (15), it will wrap back round to zero.
 def increment_seq():
     Packet.seq += 1
-    
+
     if Packet.seq > SEQ_WRAP:
         Packet.seq = 0x01
 
 
 ## Provides an abstraction of a data packet, which will be able to be transmitted to, and received
 # from the panel.
-class Packet(Content, IWritable):
+class Packet(Content, IWritable, IReadable):
     seq = 0x01  # Sequence number
 
     def __init__(self, header: BaseHeader, **kwargs):
@@ -71,3 +73,32 @@ class Packet(Content, IWritable):
         serial.write(data)
 
         increment_seq()
+
+    ## Reads from a serial communication port.
+    #
+    # The data read (if any) from the communication port.
+    def read(self, size: int):
+        print(f"Reading {size} bytes of data.")
+
+        serial = SerialDataTransfer()
+
+        # Create a new thread to handle reading from serial communication port.
+        thread = threading.Thread(target=serial.read, args=(size,))
+
+        has_data = False
+
+        read_data = bytes
+
+        while not has_data:
+            read_data = serial.read(size)
+
+            if len(read_data) > 1:
+                print(f"Read data: {read_data}")
+                has_data = True
+
+        # If data has been read, we should send back an acknowledgement (ACK) byte,
+        # so we will longer receive data.
+        if read_data:
+            serial.write_byte(ACK)
+
+        return list()
