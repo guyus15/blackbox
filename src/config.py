@@ -216,3 +216,12 @@ def get_stopbits() -> int:
         return serial.STOPBITS_TWO
     else:
         raise InvalidValueException(f"Invalid stopbits value '{read_value}': Stopbits value must be either 1 or 2.")
+
+
+## Returns the time period value from the configuration file.
+#
+# @return The time period value.
+def get_time_period() -> int:
+    global config
+
+    return config["time-period"]

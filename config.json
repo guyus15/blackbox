@@ -23,5 +23,6 @@
     "bytesize": 8,
     "parity": "none",
     "stopbits": 1
-  }
+  },
+  "time-period": 5
 }
