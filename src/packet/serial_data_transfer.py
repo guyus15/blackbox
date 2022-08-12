@@ -6,6 +6,10 @@
 import serial
 
 import src.config as config
+from src.clock import Clock
+from src.packet.packet import ACK
+
+RESEND_TIME = 5  # 5 seconds
 
 
 class SerialDataTransfer:
@@ -35,17 +39,26 @@ class SerialDataTransfer:
     #
     # @return The data (if any) read from the serial communication port.
     def read(self, size: int):
+        clock = Clock()
+
         ack_acquired = False
 
         # Reads the ACK, so it does not appear in final data.
         while not ack_acquired:
             data = self.serial.read(size=1)
-            if data.find(b'\x06') == 0:
+            if int.from_bytes(data, "little") == ACK:
                 ack_acquired = True
-                print("ACK received...")
 
         while True:
+            # If we have not received any data after a set time, don't bother trying to read,
+            # we'll send another packet.
+            if clock.time_elapsed(RESEND_TIME):
+                print("No response from sent packet, moving on to next...")
+                break
+
             response = self.serial.read(size=size)
 
             if len(response) == size:
                 return response
+
+        return None

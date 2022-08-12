@@ -2,15 +2,13 @@
 # @brief Contains definition for the Packet class.
 # @author Guy Chamberlain-Webber
 
+import src.constants as constants
+
 from src.packet.content import Content
 from src.packet.headers import BaseHeader
 from src.packet.readable import IReadable
 from src.packet.serial_data_transfer import SerialDataTransfer
 from src.packet.writable import IWritable
-
-SOH = 0x01  # Start of frame
-ACK = 0x06  # Acknowledge
-SEQ_WRAP = 0x0f  # Number to wrap the SEQ
 
 
 ## Increments the sequence number.
@@ -20,7 +18,7 @@ SEQ_WRAP = 0x0f  # Number to wrap the SEQ
 def increment_seq():
     Packet.seq += 1
 
-    if Packet.seq > SEQ_WRAP:
+    if Packet.seq > constants.SEQ_WRAP:
         Packet.seq = 0x01
 
 
@@ -59,7 +57,7 @@ class Packet(Content, IWritable, IReadable):
         # Modulus operation to ensure checksum can be contained within one byte.
         checksum %= 256
 
-        default_array.insert(0, SOH)
+        default_array.insert(0, constants.SOH)
         default_array.append(checksum)
 
         return default_array
@@ -73,28 +71,32 @@ class Packet(Content, IWritable, IReadable):
 
         increment_seq()
 
+        serial.__del__()
+
     ## Reads from a serial communication port.
     #
     # The data read (if any) from the communication port.
     def read(self, size: int):
-        print(f"Reading {size} bytes of data.")
-
         serial = SerialDataTransfer()
-
         has_data = False
-
         read_data = bytes
 
         while not has_data:
             read_data = serial.read(size)
 
-            if len(read_data) > 1:
+            if read_data is None:
+                # No data could be read so try another packet.
+                serial.__del__()
+                self.write()
+                serial = SerialDataTransfer()
+            elif len(read_data) > 1:
+                # Data has been found.
                 print(f"Read data: {read_data}")
                 has_data = True
 
         # If data has been read, we should send back an acknowledgement (ACK) byte,
         # so we will longer receive data.
         if read_data:
-            serial.write_byte(ACK)
+            serial.write_byte(constants.ACK)
 
         return list()
