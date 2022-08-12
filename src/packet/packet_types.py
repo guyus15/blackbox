@@ -70,6 +70,8 @@ class PanelDetailsRequestMX6(IWritable):
 # A dictionary containing concrete packets respective to their expected response packet's size (i.e. you send
 # a MX5 Panel Details request, you expected a response of size 29).
 response_sizes = {
+    RestartPanelMX5: 0,
+    RestartPanelMX6: 0,
     PanelDetailsRequestMX5: 30,
     PanelDetailsRequestMX6: 31
 }
