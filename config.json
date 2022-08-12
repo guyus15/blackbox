@@ -19,7 +19,7 @@
   },
   "serial": {
     "baudrate": 115200,
-    "timeout": 0,
+    "timeout": 1,
     "bytesize": 8,
     "parity": "none",
     "stopbits": 1
