@@ -39,6 +39,9 @@ class Packet(Content, IWritable, IReadable):
         self._params = header.get_parameters()
         self._params.update(_params_copy)
 
+        # Update packet length
+        self.set_parameter("packet_length", len(self._params))
+
     ## Gets an object as an array of bytes.
     #
     # The packet will provide SOH and SEQ numbers to the byte array, as well
