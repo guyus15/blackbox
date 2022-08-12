@@ -9,8 +9,6 @@ import src.config as config
 import src.constants as constants
 from src.clock import Clock
 
-RESEND_TIME = 5  # 5 seconds
-
 
 class SerialDataTransfer:
     def __init__(self):
@@ -52,7 +50,7 @@ class SerialDataTransfer:
         while True:
             # If we have not received any data after a set time, don't bother trying to read,
             # we'll send another packet.
-            if clock.time_elapsed(RESEND_TIME):
+            if clock.time_elapsed(constants.RESEND_TIME):
                 print("No response from sent packet, moving on to next...")
                 break
 
