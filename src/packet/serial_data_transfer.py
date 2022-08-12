@@ -6,8 +6,8 @@
 import serial
 
 import src.config as config
+import src.constants as constants
 from src.clock import Clock
-from src.packet.packet import ACK
 
 RESEND_TIME = 5  # 5 seconds
 
@@ -46,7 +46,7 @@ class SerialDataTransfer:
         # Reads the ACK, so it does not appear in final data.
         while not ack_acquired:
             data = self.serial.read(size=1)
-            if int.from_bytes(data, "little") == ACK:
+            if int.from_bytes(data, "little") == constants.ACK:
                 ack_acquired = True
 
         while True:
