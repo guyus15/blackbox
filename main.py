@@ -11,7 +11,7 @@ def run():
     clock = Clock(start_true=True)
 
     while should_run:
-        if clock.can_run_after(5):
+        if clock.time_elapsed(5):
             packet = PanelDetailsRequestMX5()
             packet.write()
 
