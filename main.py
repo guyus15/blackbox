@@ -3,7 +3,7 @@
 # @author Guy Chamberlain-Webber
 
 from src.clock import Clock
-from src.packet.packet_types import PanelDetailsRequestMX5
+from src.packet.packet_types import PointInformationRequestMX6
 
 
 def run():
@@ -12,7 +12,7 @@ def run():
 
     while should_run:
         if clock.time_elapsed(5):
-            packet = PanelDetailsRequestMX5()
+            packet = PointInformationRequestMX6()
             packet.write()
 
             read_data = packet.read()
