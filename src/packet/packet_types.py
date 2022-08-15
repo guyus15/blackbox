@@ -63,7 +63,7 @@ class PanelDetailsRequestMX6(PacketImplementation):
 
 ## A class representing a point information request (MX5).
 class PointInformationRequestMX5(PacketImplementation):
-    def __init__(self):
+    def __init__(self, point_number: int):
         super().__init__()
         header = LocalHeaderMX5(PacketID.POINT_INFO_REQUEST)
         params = {
@@ -71,7 +71,7 @@ class PointInformationRequestMX5(PacketImplementation):
             "channel": 0,  # D+1
             "channel_address": 1,  # D+2
             "point_category": 0,  # D+3
-            "point_number": 4,  # D+4
+            "point_number": point_number,  # D+4
             "logical_point_number": 253,  # D+5
             "logical_point_zone": 254,  # D+6
             "device_category": 0,  # D+7
@@ -118,11 +118,12 @@ class PointInformationRequestMX5(PacketImplementation):
         }
 
         self.packet = Packet(header=header, **params)
+        print(f"Point Information Request Packet: {self.packet.get_byte_array()}")
 
 
 ## A class representing a point information request (MX6).
 class PointInformationRequestMX6(PacketImplementation):
-    def __init__(self):
+    def __init__(self, point_number: int):
         super().__init__()
         header = LocalHeaderMX6(PacketID.POINT_INFO_REQUEST)
         params = {
@@ -130,7 +131,7 @@ class PointInformationRequestMX6(PacketImplementation):
             "channel": 0,  # D+1
             "channel_address": 1,  # D+2
             "point_category": 0,  # D+3
-            "point_number": 4,  # D+4
+            "point_number": point_number,  # D+4
             "logical_point_number": 253,  # D+5
             "logical_point_zone": 254,  # D+6
             "device_category": 0,  # D+7
@@ -177,6 +178,7 @@ class PointInformationRequestMX6(PacketImplementation):
         }
 
         self.packet = Packet(header=header, **params)
+        print(f"Point Information Request Packet: {self.packet.get_byte_array()}")
 
 
 # A dictionary containing concrete packets respective to their expected response packet's size (i.e. you send
