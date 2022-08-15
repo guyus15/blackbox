@@ -4,9 +4,9 @@
 
 import unittest
 
+from src.constants import SEQ_WRAP
 from src.packet.headers import LocalHeaderMX5, LocalHeaderMX6
 from src.packet.packet import Packet
-from src.packet.packet import SEQ_WRAP
 from src.packet.packet_ids import PacketID
 
 this_packet = None
@@ -56,11 +56,11 @@ class TestPacket(unittest.TestCase):
         # together the parameters of the header and contents.
         global this_packet
 
-        expected_contents = [0x01, 0x01, 0x09,
+        expected_contents = [0x01, 0x01, 0x0c,
                              0x00, 0x00, 0x00,
                              0x00, 0x00, 0x00,
                              0x00, 0x00, 0x01,
-                             0x02, 0x03, 0x10]
+                             0x02, 0x03, 0x13]
 
         self.assertEqual(this_packet.get_byte_array(), expected_contents)
 
