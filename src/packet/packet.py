@@ -79,7 +79,7 @@ class Packet(Content, IWritable, IReadable):
     ## Reads from a serial communication port.
     #
     # The data read (if any) from the communication port.
-    def read(self, size: int):
+    def read(self, size: int) -> list:
         serial = SerialDataTransfer()
         has_data = False
         read_data = bytes
@@ -94,7 +94,6 @@ class Packet(Content, IWritable, IReadable):
                 serial = SerialDataTransfer()
             elif len(read_data) > 1:
                 # Data has been found.
-                print(f"Read data: {read_data}")
                 has_data = True
 
         # If data has been read, we should send back an acknowledgement (ACK) byte,
@@ -102,4 +101,4 @@ class Packet(Content, IWritable, IReadable):
         if read_data:
             serial.write_byte(constants.ACK)
 
-        return list()
+        return list(read_data)
