@@ -249,6 +249,14 @@ class TestConfig(unittest.TestCase):
 
         self.assertEqual(config.get_time_period(), this_config["time-period"])
 
+    # Test 21
+    def test_get_polling_time_period(self):
+        # This test ensures that when the get_polling_time_period() function is called,
+        # it will return the correct value.
+        global this_config
+
+        self.assertEqual(config.get_polling_time_period(), this_config["polling-time-period"])
+
     @classmethod
     def tearDownClass(cls) -> None:
         with open(config.CONFIG_PATH) as fd:

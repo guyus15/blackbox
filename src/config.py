@@ -232,3 +232,13 @@ def get_time_period() -> int:
     load_config()
 
     return config["time-period"]
+
+
+## Returns the polling time period value from the configuration file.
+#
+# @return The polling time period value.
+def get_polling_time_period() -> int:
+    global config
+    load_config()
+
+    return config["polling-time-period"]
