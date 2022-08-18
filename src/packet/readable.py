@@ -1,4 +1,4 @@
-## @file.py readable.py
+## @file readable.py
 # @brief Contains interface IReadable used to enforce reading functionality on an object.
 # @author Guy Chamberlain-Webber
 

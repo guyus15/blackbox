@@ -7,6 +7,7 @@ import src.constants as constants
 from src.packet.content import Content
 from src.packet.headers import LocalHeaderMX5
 from src.packet.headers import LocalHeaderMX6
+from src.packet.loggable import ILoggable
 from src.packet.packet import Packet
 from src.packet.packet_ids import PacketID
 from src.packet.writable import IWritable
@@ -65,7 +66,7 @@ class PanelDetailsRequestMX6(PacketImplementation):
 
 
 ## A class representing a point information reply packet (MX5).
-class PointInformationReplyMX5(Content):
+class PointInformationReplyMX5(Content, ILoggable):
     def __init__(self, point_number: int, data: list, **kwargs):
         self.point_number = point_number
         self._data = data
@@ -135,6 +136,21 @@ class PointInformationReplyMX5(Content):
     # @return True is a device has been found at a particular point on the network, otherwise False.
     def reply_successful(self) -> bool:
         return self.get_parameter("preply_status") == 0
+
+    ## Returns an object as a series of comma-separated values (CSV).
+    #
+    # @return The object as a series of comma-separated values (CSV).
+    def get_as_csv(self) -> str:
+        csv_string = ""
+        params = self.get_parameters()
+
+        for param in params:
+            csv_string += f"{params[param]},"
+
+        # Remove final ','.
+        csv_string = csv_string[:-1]
+
+        return csv_string
 
     def __str__(self):
         if self.reply_successful():

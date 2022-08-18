@@ -1,4 +1,4 @@
-## @file.py writable.py
+## @file writable.py
 # @brief Contains interface IWritable used to enforce writing functionality on an object.
 # @author Guy Chamberlain-Webber
 

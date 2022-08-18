@@ -7,7 +7,9 @@ import abc
 
 ## An interface used containing specific logging functions.
 class ILoggable(abc.ABC):
-    ## Returns an object as a series of comma-separated-values.
+    ## Returns an object as a series of comma-separated values (CSV).
+    #
+    # @return The object as a series of comma-separated values (CSV).
     @abc.abstractmethod
-    def get_as_csv(self):
+    def get_as_csv(self) -> str:
         pass
