@@ -24,5 +24,6 @@
     "parity": "none",
     "stopbits": 1
   },
-  "time-period": 5
+  "time-period": 5,
+  "polling-time-period": 0.1
 }
