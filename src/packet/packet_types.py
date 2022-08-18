@@ -130,11 +130,17 @@ class PointInformationReplyMX5(Content):
 
         super().__init__(**params)
 
-    def __str__(self):
-        if self.get_parameter("preply_status") == 1:
-            return f"No points found at address {self.point_number}."
+    ## Returns whether the reply packet has been successful in finding a device on the network.
+    #
+    # @return True is a device has been found at a particular point on the network, otherwise False.
+    def reply_successful(self) -> bool:
+        return self.get_parameter("preply_status") == 0
 
-        return super().__str__()
+    def __str__(self):
+        if self.reply_successful():
+            return super().__str__()
+
+        return f"No points found at address {self.point_number}."
 
 
 ## A class representing a point information reply packet (MX6).
@@ -204,11 +210,14 @@ class PointInformationReplyMX6(Content):
 
         super().__init__(**params)
 
-    def __str__(self):
-        if self.get_parameter("preply_status") == 1:
-            return f"No points found at address {self.point_number}."
+    def reply_successful(self) -> bool:
+        return self.get_parameter("preply_status") == 0
 
-        return super().__str__()
+    def __str__(self):
+        if self.reply_successful():
+            return super().__str__()
+
+        return f"No points found at address {self.point_number}."
 
 
 ## A class representing a point information request (MX5).
