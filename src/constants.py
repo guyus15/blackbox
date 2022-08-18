@@ -6,6 +6,7 @@ SOH = 0x01  # Start of frame
 ACK = 0x06  # Acknowledge
 SEQ_WRAP = 0x0f  # Number to wrap the SEQ
 RESEND_TIME = 5  # Time to wait before resending a packet
+MAXIMUM_POINT_NUMBER = 250  # The maximum number of points
 
 # PointInformationReplyMX5 Indexes
 PIRMX5_SOH_INDEX = 0
