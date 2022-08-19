@@ -8,10 +8,18 @@ import src.constants as constants
 from src.clock import Clock
 from src.packet.device_codes import devices_codes
 from src.packet.packet_types import PointInformationRequestMX5
+from src.packet.serial_data_transfer import SerialDataTransfer
 
 
 ## The main program loop.
 def run():
+    # Check the configured COM port to ensure that it is valid.
+    # Using a hacky way to do scope blocks in Python (it is not officially supported)
+    def scope_block():
+        serial = SerialDataTransfer()
+
+    scope_block()
+
     # Get any existing points.
     points = find_valid_points()
 
@@ -30,6 +38,7 @@ def run():
 
                 read_data = packet.read()
                 if read_data.reply_successful():
+                    print(read_data.get_as_csv())
                     print(devices_codes[read_data.get_parameter("pdevice_type")])
 
                 print("\n")

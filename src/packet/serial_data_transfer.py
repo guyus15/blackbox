@@ -3,6 +3,8 @@
 # setting up pyserial.
 # @author Guy Chamberlain-Webber
 
+import sys
+
 import serial
 
 import src.config as config
@@ -12,16 +14,24 @@ from src.clock import Clock
 
 class SerialDataTransfer:
     def __init__(self):
-        self.serial = serial.Serial(port=config.get_com_port(),
-                                    baudrate=config.get_baudrate(),
-                                    timeout=config.get_timeout(),
-                                    bytesize=config.get_bytesize(),
-                                    parity=config.get_parity(),
-                                    stopbits=config.get_stopbits()
-                                    )
+        self.serial = None
+
+        try:
+            self.serial = serial.Serial(port=config.get_com_port(),
+                                        baudrate=config.get_baudrate(),
+                                        timeout=config.get_timeout(),
+                                        bytesize=config.get_bytesize(),
+                                        parity=config.get_parity(),
+                                        stopbits=config.get_stopbits()
+                                        )
+        except serial.SerialException:
+            print(f"Unable to open port: '{config.get_com_port()}'.\nPlease make sure the correct port is specified "
+                  f"and that it is not in use by another process.")
+            sys.exit()
 
     def __del__(self):
-        self.serial.close()
+        if self.serial:
+            self.serial.close()
 
     ## Writes data across a serial communication port.
     def write(self, data: list):
